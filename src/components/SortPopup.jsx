@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from "react";
 
 
 export const SortPopup = (props) => {
-    console.log(props)
+
+
 
     const [visiblePopup, setVisiblePopup] = useState(false)
     const [activeItem, setActiveItem] = useState(0)
