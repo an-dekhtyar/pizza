@@ -1,31 +1,30 @@
 import {Header} from './components'
 import {Main, Cart} from './pages'
-import { Route } from 'react-router-dom'
+import {Route} from 'react-router-dom'
 import React, {useEffect, useState} from "react";
-import axios from "axios";
-
-
+import {useDispatch, useSelector, useStore} from "react-redux";
+import {getPizzas} from "./bll/pizzas-reducer";
 
 
 function App() {
 
-  const [pizzas, setPizzas] = useState([])
 
-  useEffect(()=>{
+    const dispatch = useDispatch()
+    const pizzas = useSelector(state => state.pizzas.items)
 
-    axios.get('http://localhost:3000/db.json')
-        .then(data => setPizzas(data.data.pizzas))
-  },[])
+    useEffect(() => {
+        dispatch(getPizzas())
+    }, [])
 
-  return (
-      <div className="wrapper">
-        <Header/>
-        <div className="content">
-          <Route exact path="/"  render={()=> <Main items={pizzas}/>} />
-          <Route exact path="/cart" component={Cart} />
+    return (
+        <div className="wrapper">
+            <Header/>
+            <div className="content">
+                <Route exact path="/" render={() => <Main items={pizzas}/>}/>
+                <Route exact path="/cart" component={Cart}/>
+            </div>
         </div>
-      </div>
-  );
+    );
 }
 
 export default App;
