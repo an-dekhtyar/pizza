@@ -10,7 +10,6 @@ const initialState = {
 export const pizzasReducer = (state = initialState, action) => {
     switch (action.type){
         case SET_PIZZAS:
-            debugger
             return {
                 ...state,
                 items: action.items

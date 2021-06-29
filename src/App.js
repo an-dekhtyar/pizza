@@ -1,8 +1,8 @@
 import {Header} from './components'
 import {Main, Cart} from './pages'
 import {Route} from 'react-router-dom'
-import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector, useStore} from "react-redux";
+import React, {useEffect } from "react";
+import {useDispatch} from "react-redux";
 import {getPizzas} from "./bll/pizzas-reducer";
 
 
@@ -10,7 +10,7 @@ function App() {
 
 
     const dispatch = useDispatch()
-    const pizzas = useSelector(state => state.pizzas.items)
+
 
     useEffect(() => {
         dispatch(getPizzas())
@@ -20,7 +20,7 @@ function App() {
         <div className="wrapper">
             <Header/>
             <div className="content">
-                <Route exact path="/" render={() => <Main items={pizzas}/>}/>
+                <Route exact path="/" render={() => <Main />}/>
                 <Route exact path="/cart" component={Cart}/>
             </div>
         </div>
