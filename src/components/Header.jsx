@@ -9,7 +9,7 @@ export const Header = () => {
             <div className="container">
                 <div className="header__logo">
                     <NavLink to={'/'}>
-                    <img width="38" src={logoPizza} alt="Pizza logo" />
+                        <img width="38" src={logoPizza} alt="Pizza logo" />
                     </NavLink>
                     <div>
                         <h1>React Pizza</h1>

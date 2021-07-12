@@ -1,14 +1,17 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import {sortPizzas} from './../bll/filter-reducer'
 
+export const SortPopup = React.memo((props) => {
+    console.log('SORT-POPUP RENDER')
 
-export const SortPopup = (props) => {
-
-
-
+    const dispatch = useDispatch()
     const [visiblePopup, setVisiblePopup] = useState(false)
     const [activeItem, setActiveItem] = useState(0)
 
     const sortRef = useRef()
+
+
 
     const handleOutSideClick = (e) => {
         if (!e.path.includes(sortRef.current)) {
@@ -24,9 +27,10 @@ export const SortPopup = (props) => {
     const toggleVisiblePopup = () => {
         setVisiblePopup(!visiblePopup)
     }
-    const onSelectItem = (inbex) => {
+    const onSelectItem = (inbex, sortType) => {
         setActiveItem(inbex)
         setVisiblePopup(false)
+        dispatch(sortPizzas(sortType))
     }
 
 
@@ -55,8 +59,8 @@ export const SortPopup = (props) => {
             <div className="sort__popup">
                 <ul>
                     {props.items.map((item, index) => <li className={activeItem === index ? 'active' : ''}
-                                                           key={`${index}_${item.sortType}`}
-                                                           onClick={()=> {onSelectItem(index)}}>
+                                                          key={`${index}_${item.sortType}`}
+                                                          onClick={()=> {onSelectItem(index,item.sortType)}}>
                         {item.name}
                     </li>)}
                 </ul>
@@ -64,4 +68,4 @@ export const SortPopup = (props) => {
             }
         </div>
     )
-}
+})

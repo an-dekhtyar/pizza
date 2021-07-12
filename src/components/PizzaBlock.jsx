@@ -2,10 +2,12 @@ import React, {useState} from 'react'
 import classNames from 'classnames';
 import PropsTypes from 'prop-types'
 
+import { useSelector } from 'react-redux';
 
 export const PizzaBlock = (props) => {
 
     const {name, id, imageUrl, price, sizes, types, category, rating} = props
+
 
     const typeNames = ["тонкое", "традиционное"]
     const sizesValues = [26, 30, 40]
@@ -57,7 +59,7 @@ export const PizzaBlock = (props) => {
                         })}>
                         {size} см.
                     </li>)}
-                < /ul>
+                </ul>
             </div>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">от {price} ₽</div>
@@ -98,3 +100,4 @@ PizzaBlock.defaultProps = {
     types: [],
     sizes: []
 }
+

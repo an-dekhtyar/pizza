@@ -1,10 +1,10 @@
-import axios from "axios";
 import {pizzasApi} from "../api/pizzas-api";
+import { setCategory } from "./filter-reducer";
 
 
 const initialState = {
     items:[],
-    isLoaded: false
+    isLoaded: true
 }
 
 export const pizzasReducer = (state = initialState, action) => {
@@ -12,8 +12,14 @@ export const pizzasReducer = (state = initialState, action) => {
         case SET_PIZZAS:
             return {
                 ...state,
-                items: action.items
+                items: action.items,
             };
+        case SET_LOADING:{
+            return {
+                ...state,
+                isLoaded:action.value
+            }
+        }
 
         default: return state
     }
@@ -21,13 +27,18 @@ export const pizzasReducer = (state = initialState, action) => {
 
 // action Types
 const SET_PIZZAS = 'SET-PIZZAS'
+const SET_LOADING = 'SET-LOADING'
 
 
 // action Creators
 export const setPizzas = (items) => ({ type:SET_PIZZAS, items })
+export const setLoadeing = (value) => ({ type:SET_LOADING, value })
 
 // Thunk
-export const getPizzas = () => (dispatch) => {
-    pizzasApi.getPizzas()
-        .then(data => dispatch(setPizzas(data.data.pizzas)))
+export const getPizzas = () => async (dispatch) => {
+    dispatch(setLoadeing(false))
+    let data = await pizzasApi.getPizzas()
+    dispatch(setCategory(null))
+    dispatch(setPizzas(data.data))
+    dispatch(setLoadeing(true))
 }
