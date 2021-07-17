@@ -29,8 +29,8 @@ export const SortPopup = React.memo((props) => {
     const toggleVisiblePopup = () => {
         setVisiblePopup(!visiblePopup)
     }
-    const onSelectItem = (inbex, sortType) => {
-        setActiveItem(inbex)
+    const onSelectItem = (index, sortType) => {
+        setActiveItem(index)
         setVisiblePopup(false)
         dispatch(sortPizzas(sortType))
     }
