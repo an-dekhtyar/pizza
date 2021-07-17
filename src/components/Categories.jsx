@@ -1,15 +1,15 @@
-import React, {useState} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 export const Categories = React.memo((props) => {
-    console.log('CATEGORIES RENDER')
+
 
     const {activeCategory, items, onSelectItem} = props
-
 
     const onClickItem = (index) => {
         onSelectItem(index)
     }
+
 
     return (
         <div className="categories">
@@ -22,10 +22,10 @@ export const Categories = React.memo((props) => {
         </div>
     )
 })
-Categories.PropTypes = {
-    activeCategory:PropTypes.number.isRequired,
-    items:PropTypes.arrayOf(PropTypes.object).isRequired,
-    onSelectItem:PropTypes.func
+Categories.propTypes = {
+    activeCategory: PropTypes.number,
+    items: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onSelectItem: PropTypes.func
 }
 
 Categories.defaultProps = { activeCategory: null, items: [] }

@@ -1,6 +1,6 @@
 import {pizzasApi} from "../api/pizzas-api";
 import {setPizzas} from "./pizzas-reducer"
-import {setLoadeing} from './pizzas-reducer'
+import {setLoading} from './pizzas-reducer'
 
 const initialState = {
     sortBy:{
@@ -38,18 +38,18 @@ export const setCategory = (category) => ({ type:SET_CATEGORY, category })
 //thunk
 
 export const changeCategory = (category) => async (dispatch) => {
-    dispatch(setLoadeing(false))
+    dispatch(setLoading(false))
     let data = await pizzasApi.changeCategory(category)
     dispatch(setCategory(category));
     dispatch(setPizzas(data.data))
-    dispatch(setLoadeing(true))
+    dispatch(setLoading(true))
 
 }
 export const sortPizzas = (sortType) => async (dispatch) => {
-    dispatch(setLoadeing(false))
+    dispatch(setLoading(false))
     let data = await pizzasApi.getSortPizza(sortType)
     dispatch(setSortBy(sortType))
     dispatch(setPizzas(data.data))
-    dispatch(setLoadeing(true))
+    dispatch(setLoading(true))
 }
 

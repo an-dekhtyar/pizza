@@ -32,13 +32,13 @@ const SET_LOADING = 'SET-LOADING'
 
 // action Creators
 export const setPizzas = (items) => ({ type:SET_PIZZAS, items })
-export const setLoadeing = (value) => ({ type:SET_LOADING, value })
+export const setLoading = (value) => ({ type:SET_LOADING, value })
 
 // Thunk
 export const getPizzas = () => async (dispatch) => {
-    dispatch(setLoadeing(false))
+    dispatch(setLoading(false))
     let data = await pizzasApi.getPizzas()
     dispatch(setCategory(null))
     dispatch(setPizzas(data.data))
-    dispatch(setLoadeing(true))
+    dispatch(setLoading(true))
 }

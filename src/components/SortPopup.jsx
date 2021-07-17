@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import {sortPizzas} from './../bll/filter-reducer'
+import PropTypes from "prop-types";
+import {Categories} from "./Categories";
 
 export const SortPopup = React.memo((props) => {
     console.log('SORT-POPUP RENDER')
@@ -69,3 +71,7 @@ export const SortPopup = React.memo((props) => {
         </div>
     )
 })
+
+SortPopup.propTypes = {
+    items: PropTypes.array.isRequired,
+}
