@@ -1,38 +1,33 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {sortPizzas} from './../bll/filter-reducer'
 import PropTypes from "prop-types";
-import {Categories} from "./Categories";
+
 
 export const SortPopup = React.memo((props) => {
-    console.log('SORT-POPUP RENDER')
+    //props
+    const {activeSortValue, items, onSelectItem} = props
 
+
+    //hooks
     const dispatch = useDispatch()
     const [visiblePopup, setVisiblePopup] = useState(false)
-    const [activeItem, setActiveItem] = useState(0)
-
     const sortRef = useRef()
+    useEffect(() => {
+        document.body.addEventListener('click', handleOutSideClick)
+    }, [])
 
-
-
+    //callbacks
     const handleOutSideClick = (e) => {
         if (!e.path.includes(sortRef.current)) {
             setVisiblePopup(false)
         }
     }
+    const toggleVisiblePopup = () => { setVisiblePopup(!visiblePopup) }
 
-
-    useEffect(() => {
-        document.body.addEventListener('click', handleOutSideClick)
-    }, [])
-
-    const toggleVisiblePopup = () => {
-        setVisiblePopup(!visiblePopup)
-    }
-    const onSelectItem = (index, sortType) => {
-        setActiveItem(index)
+    const onSelectItemHandler = (item, sortCategoryName) => {
         setVisiblePopup(false)
-        dispatch(sortPizzas(sortType))
+        onSelectItem(item,sortCategoryName)
     }
 
 
@@ -55,14 +50,14 @@ export const SortPopup = React.memo((props) => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={toggleVisiblePopup}>{props.items[activeItem].name}</span>
+                <span onClick={toggleVisiblePopup}>{activeSortValue}</span>
             </div>
             { visiblePopup &&
             <div className="sort__popup">
                 <ul>
-                    {props.items.map((item, index) => <li className={activeItem === index ? 'active' : ''}
-                                                          key={`${index}_${item.sortType}`}
-                                                          onClick={()=> {onSelectItem(index,item.sortType)}}>
+                    {items.map((item, index) => <li className={item.name === activeSortValue ? 'active' : ''}
+                                                    key={`${index}_${item.sortType}`}
+                                                    onClick={()=> onSelectItemHandler(item.sortType, item.name)}>
                         {item.name}
                     </li>)}
                 </ul>

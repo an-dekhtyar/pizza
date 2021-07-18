@@ -9,13 +9,6 @@ import {getPizzas} from "./bll/pizzas-reducer";
 function App() {
 
 
-    const dispatch = useDispatch()
-
-
-    useEffect(() => {
-        dispatch(getPizzas())
-    }, [])
-
     return (
         <div className="wrapper">
             <Header/>

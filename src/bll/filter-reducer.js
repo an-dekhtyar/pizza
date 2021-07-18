@@ -3,10 +3,8 @@ import {setPizzas} from "./pizzas-reducer"
 import {setLoading} from './pizzas-reducer'
 
 const initialState = {
-    sortBy:{
-        type: 'id',
-        order: 'asc'
-    },
+    name: 'популярности',
+    sortType: {type: 'rating', order: 'desc'},
     category: null
 }
 
@@ -15,7 +13,8 @@ export const filterReducer = (state = initialState, action) => {
         case SET_SORT_BY:
             return {
                 ...state,
-                sortBy: {...action.sortType}
+                sortType: {...action.sortType},
+                name:action.name,
             };
         case SET_CATEGORY:
             return {
@@ -32,23 +31,23 @@ const SET_CATEGORY = 'SET-CATEGORY'
 const SET_SORT_BY = 'SET-SORT-BY'
 
 // action Creators
-export const setSortBy = (sortType) => ({ type:SET_SORT_BY, sortType })
+export const setSortBy = (sortType, name) => ({ type:SET_SORT_BY, sortType, name })
 export const setCategory = (category) => ({ type:SET_CATEGORY, category })
 
 //thunk
 
-export const changeCategory = (category) => async (dispatch) => {
+export const changeCategory = (sortType, category) => async (dispatch) => {
     dispatch(setLoading(false))
-    let data = await pizzasApi.changeCategory(category)
+    let data = await pizzasApi.getSortPizza(sortType, category)
     dispatch(setCategory(category));
     dispatch(setPizzas(data.data))
     dispatch(setLoading(true))
 
 }
-export const sortPizzas = (sortType) => async (dispatch) => {
+export const sortPizzas = (sortType, category, name) => async (dispatch) => {
     dispatch(setLoading(false))
-    let data = await pizzasApi.getSortPizza(sortType)
-    dispatch(setSortBy(sortType))
+    let data = await pizzasApi.getSortPizza(sortType, category)
+    dispatch(setSortBy(sortType, name))
     dispatch(setPizzas(data.data))
     dispatch(setLoading(true))
 }

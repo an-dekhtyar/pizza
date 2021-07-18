@@ -9,14 +9,11 @@ import {store} from "./bll/store";
 
 
 ReactDOM.render(
-
-    <React.StrictMode>
-        <Provider store={store}>
+    <Provider store={store}>
         <BrowserRouter>
             <App/>
         </BrowserRouter>
-        </Provider>
-    </React.StrictMode>,
+    </Provider>,
     document.getElementById('root')
 );
 
