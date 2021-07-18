@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {SortPopup, Categories, PizzaBlock, PizzaLoader} from '../components'
 import {setCategory} from '../bll/filter-reducer'
 import {changeCategory, sortPizzas} from '../bll/filter-reducer'
-
+import {addPizzaToCart} from '../bll/cart-reducer'
 
 export const Main = () => {
 
@@ -12,6 +12,8 @@ export const Main = () => {
     const category = useSelector(state => state.filter.category)
     const sortCategoryName = useSelector(state => state.filter.name)
     const sortType = useSelector(state => state.filter.sortType)
+    const cartItems = useSelector(state => state.cart.items)
+
 
     const dispatch = useDispatch()
 
@@ -33,10 +35,11 @@ export const Main = () => {
         dispatch(changeCategory(sortType, index))}, [sortType])
 
     const onSelectSortItem = (item, sortCategoryName) => {
-
         dispatch(sortPizzas(item,category,sortCategoryName))
     }
-
+    const onAddPizza = (pizza) => {
+        dispatch(addPizzaToCart(pizza))
+    }
 
 
     /* index === null ? dispatch(sortPizzas(sortType, sortValue)) : dispatch(changeCategory(index)) */
@@ -56,7 +59,11 @@ export const Main = () => {
             <div className="content__items">
                 {isLoaded
                     ?
-                    items.map(i => <PizzaBlock key={i.id} {...i} /> )
+                    items.map(i => <PizzaBlock
+                        key={i.id} {...i}
+                        onAddPizza={onAddPizza}
+                        addedCount={cartItems[i.id] && cartItems[i.id].length}
+                    /> )
                     :
                     [...Array(4)].map((_,index) => <PizzaLoader key={index}/>)}
             </div>

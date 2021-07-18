@@ -2,11 +2,12 @@ import React, {useState} from 'react'
 import classNames from 'classnames';
 import PropsTypes from 'prop-types'
 
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {Button} from "./Button";
 
 export const PizzaBlock = (props) => {
 
-    const {name, id, imageUrl, price, sizes, types, category, rating} = props
+    const {name, id, imageUrl, price, sizes, types, category, onAddPizza, addedCount} = props
 
 
     const typeNames = ["тонкое", "традиционное"]
@@ -20,6 +21,13 @@ export const PizzaBlock = (props) => {
     }
     const onSelectType = (index) => {
         setActiveType(index)
+    }
+    const onAddPizzaHandler = () => {
+        let obj = {
+            id, name, imageUrl, price,
+            size:activeSize, type:typeNames[activeType]
+        }
+        onAddPizza(obj)
     }
 
     return (
@@ -63,7 +71,7 @@ export const PizzaBlock = (props) => {
             </div>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">от {price} ₽</div>
-                <div className="button button--outline button--add">
+                <Button className="button--add" outline onClick={onAddPizzaHandler}>
                     <svg
                         width="12"
                         height="12"
@@ -77,8 +85,8 @@ export const PizzaBlock = (props) => {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>2</i>
-                </div>
+                    {addedCount && <i>{addedCount}</i>}
+                </Button>
             </div>
         </div>
     )
@@ -93,7 +101,9 @@ PizzaBlock.propTypes = {
     sizes:PropsTypes.arrayOf(PropsTypes.number).isRequired,
     types:PropsTypes.arrayOf(PropsTypes.number).isRequired,
     category:PropsTypes.number.isRequired,
-    rating:PropsTypes.number.isRequired
+    rating:PropsTypes.number.isRequired,
+    onAddPizza:PropsTypes.func,
+    addedCount:PropsTypes.number
 }
 
 PizzaBlock.defaultProps = {

@@ -27,8 +27,8 @@ export const filterReducer = (state = initialState, action) => {
 }
 
 // action Types
-const SET_CATEGORY = 'SET-CATEGORY'
-const SET_SORT_BY = 'SET-SORT-BY'
+const SET_CATEGORY = 'FILTER-SET-CATEGORY'
+const SET_SORT_BY = 'FILTER-SET-SORT-BY'
 
 // action Creators
 export const setSortBy = (sortType, name) => ({ type:SET_SORT_BY, sortType, name })

@@ -26,8 +26,8 @@ export const pizzasReducer = (state = initialState, action) => {
 }
 
 // action Types
-const SET_PIZZAS = 'SET-PIZZAS'
-const SET_LOADING = 'SET-LOADING'
+const SET_PIZZAS = 'PIZZAS-SET-PIZZAS'
+const SET_LOADING = 'PIZZAS-LOADING'
 
 
 // action Creators
