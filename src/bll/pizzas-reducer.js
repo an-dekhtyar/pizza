@@ -26,19 +26,10 @@ export const pizzasReducer = (state = initialState, action) => {
 }
 
 // action Types
-const SET_PIZZAS = 'PIZZAS-SET-PIZZAS'
-const SET_LOADING = 'PIZZAS-LOADING'
+const SET_PIZZAS = 'PIZZAS/SET-PIZZAS'
+const SET_LOADING = 'PIZZAS/LOADING'
 
 
 // action Creators
 export const setPizzas = (items) => ({ type:SET_PIZZAS, items })
 export const setLoading = (value) => ({ type:SET_LOADING, value })
-
-// Thunk
-export const getPizzas = () => async (dispatch) => {
-    dispatch(setLoading(false))
-    let data = await pizzasApi.getPizzas()
-    dispatch(setCategory(null))
-    dispatch(setPizzas(data.data))
-    dispatch(setLoading(true))
-}

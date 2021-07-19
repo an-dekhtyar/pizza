@@ -1,13 +1,11 @@
 import React, {useState} from 'react'
 import classNames from 'classnames';
 import PropsTypes from 'prop-types'
-
-import {useDispatch, useSelector} from 'react-redux';
 import {Button} from "./Button";
 
 export const PizzaBlock = (props) => {
 
-    const {name, id, imageUrl, price, sizes, types, category, onAddPizza, addedCount} = props
+    const {name, id, imageUrl, price, sizes, types, onAddPizza, addedCount} = props
 
 
     const typeNames = ["тонкое", "традиционное"]
@@ -29,6 +27,9 @@ export const PizzaBlock = (props) => {
         }
         onAddPizza(obj)
     }
+
+    console.log("PIZZA BLOCK RENDER")
+
 
     return (
 

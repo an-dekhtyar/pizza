@@ -27,8 +27,8 @@ export const filterReducer = (state = initialState, action) => {
 }
 
 // action Types
-const SET_CATEGORY = 'FILTER-SET-CATEGORY'
-const SET_SORT_BY = 'FILTER-SET-SORT-BY'
+const SET_CATEGORY = 'FILTER/SET-CATEGORY'
+const SET_SORT_BY = 'FILTER/SET-SORT-BY'
 
 // action Creators
 export const setSortBy = (sortType, name) => ({ type:SET_SORT_BY, sortType, name })
@@ -38,7 +38,7 @@ export const setCategory = (category) => ({ type:SET_CATEGORY, category })
 
 export const changeCategory = (sortType, category) => async (dispatch) => {
     dispatch(setLoading(false))
-    let data = await pizzasApi.getSortPizza(sortType, category)
+    let data = await pizzasApi.getPizzas(sortType, category)
     dispatch(setCategory(category));
     dispatch(setPizzas(data.data))
     dispatch(setLoading(true))
@@ -46,7 +46,7 @@ export const changeCategory = (sortType, category) => async (dispatch) => {
 }
 export const sortPizzas = (sortType, category, name) => async (dispatch) => {
     dispatch(setLoading(false))
-    let data = await pizzasApi.getSortPizza(sortType, category)
+    let data = await pizzasApi.getPizzas(sortType, category)
     dispatch(setSortBy(sortType, name))
     dispatch(setPizzas(data.data))
     dispatch(setLoading(true))

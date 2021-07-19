@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {sortPizzas} from './../bll/filter-reducer'
+
+
 import PropTypes from "prop-types";
 
 
@@ -10,7 +10,6 @@ export const SortPopup = React.memo((props) => {
 
 
     //hooks
-    const dispatch = useDispatch()
     const [visiblePopup, setVisiblePopup] = useState(false)
     const sortRef = useRef()
     useEffect(() => {
@@ -30,6 +29,7 @@ export const SortPopup = React.memo((props) => {
         onSelectItem(item,sortCategoryName)
     }
 
+    console.log(props,"SORT POPUP RENDER")
 
 
     return (

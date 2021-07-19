@@ -6,11 +6,8 @@ import {useSelector} from "react-redux";
 
 export const Header = () => {
 
-    /*let {totalPrise, totalPizzasCount} = useSelector((state) => ({
-        totalPrise:state.cart.totalPrise,
-        totalPizzasCount:state.cart.totalPizzasCount
-    }))*/
-    let totalPrise = useSelector(state => state.cart.totalPrise)
+
+    let totalPrice = useSelector(state => state.cart.totalPrice)
     let totalPizzasCount = useSelector(state => state.cart.totalPizzasCount)
 
 
@@ -20,16 +17,16 @@ export const Header = () => {
                 <div className="header__logo">
                     <NavLink to={'/'}>
                         <img width="38" src={logoPizza} alt="Pizza logo" />
+                        <div>
+                            <h1>React Pizza</h1>
+                            <p>самая вкусная пицца здесь</p>
+                        </div>
                     </NavLink>
-                    <div>
-                        <h1>React Pizza</h1>
-                        <p>самая вкусная пицца здесь</p>
-                    </div>
                 </div>
                 <div className="header__cart">
                     <NavLink to={'/cart'}>
                         <Button className="button button--cart" onClick={()=>{}}>
-                            <span>{totalPrise} ₽</span>
+                            <span>{totalPrice} ₽</span>
                             <div className="button__delimiter"></div>
                             <svg
                                 width="18"

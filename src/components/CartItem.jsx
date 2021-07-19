@@ -1,15 +1,20 @@
 import React from "react";
-
+import {Button} from "../components"
 export const CartItem = (props) => {
 
-    const {name, type, size} = props
+    const {id, name, type, size, totalPrice,
+        totalCount, removeItem, decItem, incItem, imageUrl} = props
+
+    const removeCartItemHandler = () => {removeItem(id)}
+    const incCartItemHandler = () => { incItem(id) }
+    const decCartItemHandler = () => { decItem(id) }
 
     return (
         <div className="cart__item">
             <div className="cart__item-img">
                 <img
                     className="pizza-block__image"
-                    src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
+                    src={imageUrl}
                     alt="Pizza"
                 />
             </div>
@@ -18,7 +23,7 @@ export const CartItem = (props) => {
                 <p>{type}, {size} см.</p>
             </div>
             <div className="cart__item-count">
-                <div className="button button--outline button--circle cart__item-count-minus">
+                <Button onClick={decCartItemHandler} className="button--circle cart__item-count-minus" outline>
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M5.92001 3.84V5.76V8.64C5.92001 9.17016 5.49017 9.6 4.96001 9.6C4.42985 9.6 4.00001 9.17016 4.00001 8.64L4 5.76L4.00001 3.84V0.96C4.00001 0.42984 4.42985 0 4.96001 0C5.49017 0 5.92001 0.42984 5.92001 0.96V3.84Z"
@@ -28,9 +33,9 @@ export const CartItem = (props) => {
                             fill="#EB5A1E"/>
                     </svg>
 
-                </div>
-                <b>2</b>
-                <div className="button button--outline button--circle cart__item-count-plus">
+                </Button>
+                <b>{totalCount}</b>
+                <Button onClick={incCartItemHandler} className="button--circle cart__item-count-plus" outline>
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M5.92001 3.84V5.76V8.64C5.92001 9.17016 5.49017 9.6 4.96001 9.6C4.42985 9.6 4.00001 9.17016 4.00001 8.64L4 5.76L4.00001 3.84V0.96C4.00001 0.42984 4.42985 0 4.96001 0C5.49017 0 5.92001 0.42984 5.92001 0.96V3.84Z"
@@ -40,13 +45,13 @@ export const CartItem = (props) => {
                             fill="#EB5A1E"/>
                     </svg>
 
-                </div>
+                </Button>
             </div>
             <div className="cart__item-price">
-                <b>770 ₽</b>
+                <b>{totalPrice} ₽</b>
             </div>
             <div className="cart__item-remove">
-                <div className="button button--outline button--circle">
+                <Button onClick={removeCartItemHandler} className="button--circle" outline>
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M5.92001 3.84V5.76V8.64C5.92001 9.17016 5.49017 9.6 4.96001 9.6C4.42985 9.6 4.00001 9.17016 4.00001 8.64L4 5.76L4.00001 3.84V0.96C4.00001 0.42984 4.42985 0 4.96001 0C5.49017 0 5.92001 0.42984 5.92001 0.96V3.84Z"
@@ -56,7 +61,7 @@ export const CartItem = (props) => {
                             fill="#EB5A1E"/>
                     </svg>
 
-                </div>
+                </Button>
             </div>
         </div>
     )

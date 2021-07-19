@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {SortPopup, Categories, PizzaBlock, PizzaLoader} from '../components'
-import {setCategory} from '../bll/filter-reducer'
 import {changeCategory, sortPizzas} from '../bll/filter-reducer'
 import {addPizzaToCart} from '../bll/cart-reducer'
 
@@ -13,36 +12,33 @@ export const Main = () => {
     const sortCategoryName = useSelector(state => state.filter.name)
     const sortType = useSelector(state => state.filter.sortType)
     const cartItems = useSelector(state => state.cart.items)
-
+    const items = useSelector(state => state.pizzas.items)
 
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(sortPizzas(sortType, category, sortCategoryName))
-    }, [])
+    }, [sortCategoryName])
 
 
-    const categoryNames = ['Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые']
-    const sortItems = [
-        {name: 'популярности', sortType: {type: 'rating', order: 'desc'}},
-        {name: 'цене', sortType: {type: 'price', order: 'desc'}},
-        {name: 'алфавиту', sortType: {type: 'name', order: 'asc'}}]
+    const categoryNames = useMemo(()=>
+        ['Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые'])
 
-    const items = useSelector(state => state.pizzas.items)
+    const sortItems = useMemo(()=>
+        [{name: 'популярности', sortType: {type: 'rating', order: 'desc'}},
+            {name: 'цене', sortType: {type: 'price', order: 'desc'}},
+            {name: 'алфавиту', sortType: {type: 'name', order: 'asc'}}]
+    )
+
+    console.log('MAIN RENDER' )
 
 
     const onSelectCategoryItem = useCallback((index) => {
         dispatch(changeCategory(sortType, index))}, [sortType])
 
-    const onSelectSortItem = (item, sortCategoryName) => {
-        dispatch(sortPizzas(item,category,sortCategoryName))
-    }
-    const onAddPizza = (pizza) => {
-        dispatch(addPizzaToCart(pizza))
-    }
-
-
-    /* index === null ? dispatch(sortPizzas(sortType, sortValue)) : dispatch(changeCategory(index)) */
+    const onSelectSortItem = useCallback((item, sortCategoryName) => {
+        dispatch(sortPizzas(item,category,sortCategoryName))},[category])
+    const onAddPizza = (pizza) => { dispatch(addPizzaToCart(pizza)) }
 
     return (
         <div className="container">
@@ -62,7 +58,7 @@ export const Main = () => {
                     items.map(i => <PizzaBlock
                         key={i.id} {...i}
                         onAddPizza={onAddPizza}
-                        addedCount={cartItems[i.id] && cartItems[i.id].length}
+                        addedCount={cartItems[i.id] && cartItems[i.id].currentPizzaItems.length}
                     /> )
                     :
                     [...Array(4)].map((_,index) => <PizzaLoader key={index}/>)}
