@@ -28,9 +28,6 @@ export const PizzaBlock = (props) => {
         onAddPizza(obj)
     }
 
-    console.log("PIZZA BLOCK RENDER")
-
-
     return (
 
         <div className="pizza-block">

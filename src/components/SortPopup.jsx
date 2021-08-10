@@ -29,9 +29,6 @@ export const SortPopup = React.memo((props) => {
         onSelectItem(item,sortCategoryName)
     }
 
-    console.log(props,"SORT POPUP RENDER")
-
-
     return (
         <div className="sort" tabIndex={0}
              ref={sortRef}>

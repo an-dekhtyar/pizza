@@ -9,7 +9,6 @@ export const Categories = React.memo((props) => {
     const onClickItem = (index) => {
         onSelectItem(index)
     }
-    console.log(props,"CATEGORIES RENDER")
 
     return (
         <div className="categories">

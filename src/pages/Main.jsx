@@ -7,6 +7,7 @@ import {addPizzaToCart} from '../bll/cart-reducer'
 export const Main = () => {
 
 
+
     const isLoaded = useSelector(state => state.pizzas.isLoaded)
     const category = useSelector(state => state.filter.category)
     const sortCategoryName = useSelector(state => state.filter.name)
@@ -18,26 +19,25 @@ export const Main = () => {
 
     useEffect(() => {
         dispatch(sortPizzas(sortType, category, sortCategoryName))
-    }, [sortCategoryName])
+    },[sortCategoryName] )
 
 
     const categoryNames = useMemo(()=>
-        ['Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые'])
+        ['Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые'],[])
 
     const sortItems = useMemo(()=>
         [{name: 'популярности', sortType: {type: 'rating', order: 'desc'}},
             {name: 'цене', sortType: {type: 'price', order: 'desc'}},
             {name: 'алфавиту', sortType: {type: 'name', order: 'asc'}}]
-    )
+    ,[])
 
-    console.log('MAIN RENDER' )
 
 
     const onSelectCategoryItem = useCallback((index) => {
-        dispatch(changeCategory(sortType, index))}, [sortType])
+        dispatch(changeCategory(sortType, index))}, [sortType, dispatch])
 
     const onSelectSortItem = useCallback((item, sortCategoryName) => {
-        dispatch(sortPizzas(item,category,sortCategoryName))},[category])
+        dispatch(sortPizzas(item,category,sortCategoryName))},[category, dispatch])
     const onAddPizza = (pizza) => { dispatch(addPizzaToCart(pizza)) }
 
     return (

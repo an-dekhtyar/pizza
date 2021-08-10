@@ -1,6 +1,3 @@
-import {pizzasApi} from "../api/pizzas-api";
-import { setCategory } from "./filter-reducer";
-
 
 const initialState = {
     items:[],

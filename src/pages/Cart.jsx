@@ -31,7 +31,6 @@ export const Cart = () => {
     const onClickOrder = () => { console.log(cartItems.items) }
 
 
-    console.log("CART RENDER")
 
     return (
         <div>
@@ -60,6 +59,7 @@ export const Cart = () => {
                             </div>
                             <div className="content__items">
                                 {pizzas.map(pizza =>  <CartItem
+                                    key={`${pizza.id} ${pizza.name} ${pizza.size}`}
                                     id={pizza.id}
                                     removeItem={removeItem}
                                     decItem={decItem}
