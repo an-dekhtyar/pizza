@@ -22,7 +22,7 @@ git clone git@github.com:an-dekhtyar/pizza.git
 
 Переход в рабочий каталог.
 ```
-cd react-pizza
+cd pizza
 ```
 Установка зависимостей, запуск сборки.
 ```
