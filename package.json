@@ -36,6 +36,7 @@
       "react-app/jest"
     ]
   },
+  "proxy": "https://pizsa-react-app.herokuapp.com/",
   "browserslist": {
     "production": [
       ">0.2%",
